@@ -5,11 +5,10 @@ const userOperator = getUserData(
   "Выберите математический оператор из допустимых значение (+, *)",
   operatorValidation
 );
-const userOperand = +getUserData(
+let userOperand = +getUserData(
   "Вводите числа до тех пор, пока не захотите узнать результат. Для этого нажмите cancel",
   operandValidation
 );
-
 
 function getUserData(title, validationFunction, defaultText = "") {
   let result;
@@ -26,31 +25,40 @@ function operatorValidation(value) {
 function operandValidation(value) {
   const numberValue = Number(value);
   if (Math.round(numberValue) == numberValue && String(numberValue).length <= 6)
-    return (
-      !isNaN(numberValue) &&
-      numberValue !== Infinity &&
-      numberValue !== -Infinity &&
-      numberValue != 0
-    );
+    return !isNaN(numberValue) && isFinite(numberValue);
   else return false;
 }
 
-if (userOperator == "+"){
-let total = userOperand;
-let input = +prompt();
-while(input){
-	total += +input;
-  input = +prompt();
-};
-alert("Общая сумма чисел равна [" + total +"]");
-}
-if (userOperator == "*"){
-  let total = userOperand;
-  let input = +prompt();
-  while(input){
-    total *= input;
-    input = +prompt();
-  };
-  alert("Общая произведение чисел равно [" + total +"]");
+if (userOperator == "+") {
+  let total = 0;
+  while (userOperand) {
+    total += +userOperand;
+    userOperand = +getUserData(
+      "Вводите числа до тех пор, пока не захотите узнать результат. Для этого нажмите cancel",
+      operandValidation
+    );
   }
+  let result = total;
+  if (result > Number.MAX_SAFE_INTEGER || result < Number.MIN_SAFE_INTEGER) {
+    alert("Number is too big");
+  } else {
+    alert("Общая сумма чисел равна " + total);
+  }
+}
 
+if (userOperator == "*") {
+  let total = 1;
+  while (userOperand) {
+    total *= userOperand;
+    userOperand = +getUserData(
+      "Вводите числа до тех пор, пока не захотите узнать результат. Для этого нажмите cancel",
+      operandValidation
+    );
+  }
+  let result = total;
+  if (result > Number.MAX_SAFE_INTEGER || result < Number.MIN_SAFE_INTEGER) {
+    alert("Number is too big");
+  } else {
+    alert("Общая произведение чисел равно " + result);
+  }
+}
