@@ -39,10 +39,8 @@ if (userOperator == "+"){
 let total = userOperand;
 let input = +prompt();
 while(input){
-  console.log("1", input);
 	total += +input;
   input = +prompt();
-  console.log("2", input);
 };
 alert("Общая сумма чисел равна [" + total +"]");
 }
@@ -50,7 +48,6 @@ if (userOperator == "*"){
   let total = userOperand;
   let input = +prompt();
   while(input){
-    console.log(input);
     total *= input;
     input = +prompt();
   };
